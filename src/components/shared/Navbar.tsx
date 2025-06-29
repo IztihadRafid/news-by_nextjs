@@ -1,5 +1,6 @@
+"use client"
 import Link from "next/link";
-import React from "react";
+
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -10,8 +11,15 @@ import {
 } from "../ui/navigation-menu";
 import { Switch } from "@/components/ui/switch"
 import { Button } from "@/components/ui/button"
-import { AiOutlineMenu } from "react-icons/ai";
+
+import { usePathname } from "next/navigation";
+import MobileMenu from "./MobileMenu";
+
 const Navbar = () => {
+
+  const pathname = usePathname()
+  
+
   return (
     <header className="py-4 shadow-md">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
@@ -24,9 +32,9 @@ const Navbar = () => {
         <NavigationMenu className="hidden lg:flex">
           <NavigationMenuList>
             <NavigationMenuItem className="flex items-center space-x-8">
-              <NavigationMenuLink href="/news" className="hover:text-red-600 ">News</NavigationMenuLink>
-              <NavigationMenuLink href="/services"  className="hover:text-red-600">
-                <NavigationMenuTrigger className="text-gray-700">Services</NavigationMenuTrigger>
+              <NavigationMenuLink href="/news" className={`hover:text-red-600 link ${pathname === '/news' ? 'text-red-500 underline' : ''}`}>News</NavigationMenuLink>
+              <NavigationMenuLink href="/services"  >
+                <NavigationMenuTrigger className={`hover:text-red-600 link ${pathname === '/services' ? 'text-red-500 underline' : ''}`}>Services</NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="">
                     <li>
@@ -41,8 +49,8 @@ const Navbar = () => {
                   </ul>
                 </NavigationMenuContent>
               </NavigationMenuLink>
-                <NavigationMenuLink href="/about" className="hover:text-red-600">About</NavigationMenuLink>
-                  <NavigationMenuLink href="/contact" className="hover:text-red-600">Contact</NavigationMenuLink>
+                <NavigationMenuLink href="/about" className={`hover:text-red-600 link ${pathname === '/about' ? 'text-red-500 underline' : ''}`}>About</NavigationMenuLink>
+                  <NavigationMenuLink href="/contact" className={`hover:text-red-600 link ${pathname === '/contact' ? 'text-red-500 underline' : ''}`}>Contact</NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
@@ -59,9 +67,8 @@ const Navbar = () => {
 
 
         {/* mobile hamber menu */}
-        <div className="lg:hidden">
-          <Button variant={'default'}><AiOutlineMenu size={24}/></Button>
-        </div>
+        <MobileMenu></MobileMenu>
+       
       </nav>
     </header>
   );
