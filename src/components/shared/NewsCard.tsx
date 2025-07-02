@@ -9,6 +9,7 @@ const NewsCard = ({ item }: NewsCardProps) => {
       <div className="flex justify-center items-center">
         <Link href={`/news/${item?._id}`}>
           <Image
+            priority
             src={item?.imageUrl}
             alt="news image"
             width={400}
