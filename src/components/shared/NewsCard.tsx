@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 import { NewsCardProps } from "../../../types/news";
 const NewsCard = ({ item }: NewsCardProps) => {
   return (
-    <div className="border p-4 rounded-md shadow-md ">
+    <div className="border p-4 rounded-md shadow-md dark:bg-gray-800">
       <div className="flex justify-center items-center">
         <Link href={`/news/${item?._id}`}>
           <Image

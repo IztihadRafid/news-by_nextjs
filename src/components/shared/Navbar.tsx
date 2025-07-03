@@ -14,14 +14,19 @@ import { Button } from "@/components/ui/button"
 
 import { usePathname } from "next/navigation";
 import MobileMenu from "./MobileMenu";
-
+import { useContext } from "react";
+import { ThemeContext } from "@/context/themeContext";
+interface ThemeContextType {
+    isDarkMode: boolean;
+    toggleTheme: ()=>void
+}
 const Navbar = () => {
 
   const pathname = usePathname()
-  
+  const {isDarkMode,toggleTheme}:any= useContext(ThemeContext)
 
   return (
-    <header className="py-4 shadow-md">
+    <header className={`py-4 shadow-md ${isDarkMode ? "bg-gray-900 text-white":""}`}>
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
         {/* icon */}
         <div className="text-xl font-bold">
@@ -33,8 +38,8 @@ const Navbar = () => {
           <NavigationMenuList>
             <NavigationMenuItem className="flex items-center space-x-8">
               <NavigationMenuLink href="/news" className={`hover:text-red-600 link ${pathname === '/news' ? 'text-red-500 underline' : ''}`}>News</NavigationMenuLink>
-              <NavigationMenuLink href="/services"  >
-                <NavigationMenuTrigger className={`hover:text-red-600 link ${pathname === '/services' ? 'text-red-500 underline' : ''}`}>Services</NavigationMenuTrigger>
+              <NavigationMenuLink href="/services" className={`hover:text-red-600 link ${pathname === '/services' ? 'text-red-500 underline' : ''}`}>
+                <NavigationMenuTrigger className="dark:bg-gray-900 dark:text-white">Services</NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="">
                     <li>
@@ -58,7 +63,7 @@ const Navbar = () => {
 
         {/* theme mode and login */}
         <div className="hidden lg:flex items-center space-x-4">
-          <div className="flex items-center">
+          <div onClick={toggleTheme} className="flex items-center">
             <span className="mr-2">Dark Mode</span>
             <Switch />
           </div>

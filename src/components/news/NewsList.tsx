@@ -3,12 +3,21 @@ import React, { useEffect, useState } from "react";
 import { NewsItem } from "../../../types/news";
 import NewsCard from "../shared/NewsCard";
 import { Input } from "../ui/input";
+import {
+  Select,
+  SelectContent,
+
+  SelectItem,
+
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
 const NewsList = () => {
   const [news, setNews] = useState<NewsItem[]>([]);
   const [search, setSearch] = useState<string>("");
-  const [category, setCategory] = useState<string>("");
-
+  const [category, setCategory] = useState<string>("all");
+  const categories = ["all", "tech", "health", "business", "sports","AI"];
   useEffect(() => {
     fetch("/data_news/news_data.json")
       .then((res) => res.json())
@@ -17,8 +26,9 @@ const NewsList = () => {
       });
   }, []);
   //   console.log(news);
-  const filteredNews = news.filter((item) =>
-    item.title.toLowerCase().includes(search.toLowerCase())
+const filteredNews = news.filter((item) =>
+    item.title.toLowerCase().includes(search.toLowerCase()) ||
+    (category === "all" || item.title.toLowerCase() === category.toLowerCase())
   );
   return (
     <div className="p-4">
@@ -33,8 +43,21 @@ const NewsList = () => {
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
-        <div>
+        {/* FILTER */}
+         <div className="flex gap-3 items-center">
           <h3 className="font-bold text-lg mb-2">Filter</h3>
+          <Select value={category} onValueChange={setCategory}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Select Category" />
+            </SelectTrigger>
+            <SelectContent>
+              {categories.map((category) => (
+                <SelectItem key={category} value={category}>
+                  {category.charAt(0).toUpperCase() + category.slice(1)}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
       </div>
 

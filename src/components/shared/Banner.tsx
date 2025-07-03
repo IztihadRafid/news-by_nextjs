@@ -4,7 +4,7 @@ import banner from "@/assests/banner.jpg"
 import Image from 'next/image';
 const Banner = () => {
     return (
-        <div className='bg-slate-100'>
+        <div className='dark:bg-gray-800 dark:text-white'>
             <div className='p-8 grid grid-cols-1  md:grid-cols-2 items-center gap-8'>
                 {/* image */}
                 <div>
