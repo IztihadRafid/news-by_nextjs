@@ -16,10 +16,7 @@ import { usePathname } from "next/navigation";
 import MobileMenu from "./MobileMenu";
 import { useContext } from "react";
 import { ThemeContext } from "@/context/themeContext";
-interface ThemeContextType {
-    isDarkMode: boolean;
-    toggleTheme: ()=>void
-}
+
 const Navbar = () => {
 
   const pathname = usePathname()
